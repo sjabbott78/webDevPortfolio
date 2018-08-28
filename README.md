@@ -5,4 +5,5 @@ Today's Goals
 1. <s>Get on GitHub</s>
 2. Link Codepen.io
 3. Start Class Doc (G Doc) for class sharing
+  https://docs.google.com/document/d/1OsthduX3FR6_PELVIpTpB1wWZUZKoRXT7EYHhKgWYbQ/edit
 4. <s>Get HelloWorld.html online</s>
