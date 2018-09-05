@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Mukta');
+#*{
+  border: solid 5px red;
+  //display: inline;
+}
+
+body {
+  background-color: #9CCC65;
+  // gradient & textures;
+  //font-family: 'Mukta', sans-serif;
+  font-family: 'Indie Flower', cursive;
+  font-size: 18px;
+  padding: 4px;
+  margin: 4px;
+  width: 400px;
+}
+
+#nav-header{
+  //background-color: blue;
+  height: 100px;
+  width: 200px;
+  border: solid 1px;
+  //display: inline;
+  position: absolute;
+  //left : 600px;
+  right: 100px;
+  top: 100px;
+  bottom: 100px;
+}
+
+#main-content{
+  //float: right;
+  position: absolute;
+  right: 550px;
+  top: 200px;
+}
+
+#list-content{
+  
+}
+
+.mute-box{
+  padding: 0px;
+  margin: 0px;
+}
+
+img {
+  height: 25%;
+  width: 25%;
+  //border-radius: 50%;
+}
+
+h1 {
+  text-decoration: underline;
+}
+
+#catPic {
+  filter: drop-shadow(30px 10px 4px #4444dd);
+  height: 300px;
+  width: 300px;
+}
+
+.allPics {
+  border: dotted 12px black;
+}
+
