@@ -1,43 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" >
-
 <head>
-  <meta charset="UTF-8">
-  <title>Portfolio Layout</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/960gs/0/960.min.css'>
-
-      <link rel="stylesheet" href="css/style.css">
-
-  
+	<meta charset="UTF-8">
+	<title>My Portfolio</title>
+	<link href='https://fonts.googleapis.com/css?family=Jacques Francois Shadow' rel='stylesheet'>
+	<link rel="stylesheet" href="css/style.css">
 </head>
-
-<body class="flat-box">
-
-  <div id="header">Logo + Links</div>
-  
-  <div id="main-content">
-  
-	<div id="big-image">
-		<img id="big-pic" src="img/Landscape.svg" alt="Field landscape" />
-	</div>
+<body>
+	<div class="flex-container new-body">
 	
-	<div id="my-list">
-		my list
-	</div>
+		<div id="full-width" class="flex-item header  border-style">
+			<h1 class="no-margin-padding">My Portfolio</h1>
+			<h3 class="right no-margin-padding">Stephen Abbott</h3>
+		</div>
+		
+		<div class="flex-item border-style">
+			<h4 class="no-margin-padding">About Me</h4>
+			<a href="https://github.com/sjabbott78/webDevPortfolio" target="Where_my_links_open">
+				<img class="myPic border-style" src="img/myPic.jpg" />
+			</a>
+		</div>
+
+		<div class="flex-item border-style">
+			<h4 class="no-margin-padding">Links to projects</h4>
+			<ul>
+				<li><a href="https://sjabbott78.github.io/webDevPortfolio/" target="Where_my_links_open">Hello World</a></li>
+				<li><a href="https://codepen.io/sjabbott78/full/zJjmMa/" target="Where_my_links_open">Position Homework pt1</a></li>
+				<li><a href="https://codepen.io/sjabbott78/full/eLrQOr/" target="Where_my_links_open">Position Homework pt2</a></li>
+				<li><a href="https://codepen.io/sjabbott78/full/YOLRxw/" target="Where_my_links_open">Position Homework pt3</a></li>
+				<li><a href="https://codepen.io/dashboard?type=view&opts_itemType=pen&opts_filter=all&opts_orderBy=id&opts_orderDirection=0&opts_tag=0&displayType=grid&previewType=iframe&page=0" target="Where_my_links_open">My CodePen</a></li>
+				<li><a href="https://github.com/sjabbott78/webDevPortfolio" target="Where_my_links_open">GitHub Repo</a></li>
+			</ul>
+
+		</div>
+
+		<div class="flex-item border-style">
+			<h4 class="no-margin-padding">Code Snippet</h4>
+<xmp class="left-top">
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title>My Portfolio</title>
+	<link href='https://fonts.googleapis.com/css?family=Jacques Francois Shadow' rel='stylesheet'>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+</xmp>
+		</div>
+
+		<div class="flex-item border-style">
+			<h4 class="no-margin-padding">References</h4>
+			<ul>
+				<li><a href="https://www.w3schools.com/css/" target="Where_my_links_open">w3schools</a></li>
+				<li><a href="https://css-tricks.com/" target="Where_my_links_open">CSS-TRICKS</a></li>
+				<li><a href="http://htmlandcssbook.com/" target="Where_my_links_open">HTML&ampCSS</a></li>
+				<li><a href="https://codepen.io/" target="Where_my_links_open">CodePen</a></li>
+				<li><a href="https://github.com/" target="Where_my_links_open">GitHub</a></li>
+				<li><a href="http://devdocs.io/" target="Where_my_links_open">DevDocs</a></li>
+			</ul>
+		</div>
+
+		<div id="full-width" class="flex-item footer  border-style">
+			<h6>Copyright &copy 2018</h6>
+			<h5>Tested in Chrome</h5>
+		</div>
 	
-  </div>
-  
-  <div id="footer">Footer</div>
-
-
-
-  <!-- do not touch these tags: they are for our bootstrap & js files -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
-  <script  src="js/index.js"></script>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
 </body>
-
 </html>
