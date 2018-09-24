@@ -58,6 +58,7 @@ body{
 .flex-item:hover{
 	background-color: #1f8dd3;
 	opacity:1.0;
+	box-shadow: 15px 15px 40px 15px #64b5e8;
 }
 
 .header{
@@ -110,6 +111,7 @@ li{
 
 .border-style{
 	border-radius: 8px;
+	
 }
 
 .myPic{
