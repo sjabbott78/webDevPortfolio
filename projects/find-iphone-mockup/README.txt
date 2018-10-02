@@ -1,3 +1,5 @@
-A Pen created at CodePen.io. You can find this one at https://codepen.io/sjabbott78/pen/OBLexY.
+Find My iPhone mockup.
+
+This web page mimics some of Apple's Find My iPhone application
 
  
