@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+	
+	<meta charset="UTF-8">
+	<title>find-iphone-mockup</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+	<div id="conatainer-box"> 
+	<div class="item-box"> 
+		<img id="find-iphone-icon" alt="Find iPhone Icon" src="img/find_iPhone.jpg" />
+	</div>
+	<div class="item-box"> 
+		<h1>Find My iPhone</h1>
+	</div>
+	<div class="item-box">
+		<label>Apple ID</label>
+		<input id="appleID" type="text" onBlur="" oninput="checkPassAndID()"/>
+		<label>Password</label>
+		<input id="password" type="password" oninput="checkPassAndID()"/>
+	</div>
+	<div class="item-box">
+		<button id="button" disabled>Sign In...</button>
+	</div>
+	<div class="item-box">
+		<a href="#" target="_blank">Forgot Apple ID or Password?</a>
+		<a href="#" target="_blank">Set Up Instructions</a>
+	</div>
+	</div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script  src="js/index.js"></script>
+</body>
+
+</html>
