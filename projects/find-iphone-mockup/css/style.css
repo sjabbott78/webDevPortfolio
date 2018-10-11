@@ -1,7 +1,7 @@
 body{
   height: 100vh;
-  margin: 0; 
-	padding: 0;
+  margin: 0;
+  padding: 0;
   font-family: sans-serif;
   align-items:center;
   justify-content:center; 
@@ -11,21 +11,21 @@ body{
 #conatainer-box{
   height: 95vh;
   width: 95vw;
-	max-width: 370px; 
-	max-height: 660px;
+  max-width: 370px; 
+  max-height: 660px;
   min-height: 645px;
-	margin: auto; 
-	padding:0; 
-	background-color: #fff; 
-	border: solid 1px gray;
-	border-radius: 40px;
+  margin: auto; 
+  padding:0; 
+  background-color: #fff; 
+  border: solid 1px gray;
+  border-radius: 40px;
   display: flex;
   flex-direction: column;
 }
 
 .item-box{
-	text-align: center;
-	padding: 0; 
+  text-align: center;
+  padding: 0; 
 }
 
 h1{
@@ -40,9 +40,9 @@ h1{
 
 #find-iphone-icon {
   width: 100px; 
-	height: 100px; 
-	border: solid 0.7px #8a8a8a; 
-	border-radius: 25px;  
+  height: 100px; 
+  border: solid 0.7px #8a8a8a; 
+  border-radius: 25px;  
 }
 
 .xlSpace{
@@ -96,17 +96,17 @@ input:focus::placeholder{
 #appleID-input {
   height: 38px;
   border: solid 0.7px #8a8a8a;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   margin: auto auto;
 }
 
 #password-input {
   height: 38px;
   border: solid 0.7px #8a8a8a;
-	border-top: 0;
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
+  border-top: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 button {
@@ -125,7 +125,7 @@ ul {
 
 a {
   text-decoration: none;
-    color: #8a8a8a
+  color: #8a8a8a
 }
 
 .activeButton{
