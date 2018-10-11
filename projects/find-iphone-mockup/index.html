@@ -12,28 +12,50 @@
 <body>
 
 	<div id="conatainer-box"> 
-	<div class="item-box"> 
-		<img id="find-iphone-icon" alt="Find iPhone Icon" src="img/find_iPhone.jpg" />
-	</div>
-	<div class="item-box"> 
-		<h1>Find My iPhone</h1>
-	</div>
-	<div class="item-box">
-		<label>Apple ID</label>
-		<input id="appleID" type="text" onBlur="" oninput="checkPassAndID()"/>
-		<label>Password</label>
-		<input id="password" type="password" oninput="checkPassAndID()"/>
-	</div>
-	<div class="item-box">
-		<button id="button" disabled>Sign In...</button>
-	</div>
-	<div class="item-box">
-		<a href="#" target="_blank">Forgot Apple ID or Password?</a>
-		<a href="#" target="_blank">Set Up Instructions</a>
-	</div>
-	</div>
+
+    <div class="item-box xlSpace center"> 
+      <img id="find-iphone-icon" alt="Find iPhone Icon" src="img/find_iPhone.jpg" />
+    </div>
+
+    <div class="item-box smSpace"> 
+      <h1>Find My iPhone</h1>
+    </div>
+
+    <div class="item-box smSpace input-block">
+      <div id="appleID-input">
+        <span class="center">
+          <label>Apple ID</label>
+          <input id="appleID" type="text" placeholder="Email"/>
+        </span>
+      </div>
+      <div id="password-input">
+        <span class="center">
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Required"/>
+        </span>
+      </div>
+    </div>
+
+    <div class="item-box smSpace">
+      <button id="button" disabled>Sign In...</button>
+    </div>
+
+    <div class="item-box xlSpace">
+      <ul>
+        <li>
+          <a href="#" target="_blank">Forgot Apple ID or Password?</a>
+        </li>
+        <li>
+          <a href="#" target="_blank">Set Up Instructions</a>
+        </li>
+      </ul>   
+    </div>
+
+  </div>
+
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-    <script  src="js/index.js"></script>
+  <script  src="js/index.js"></script>
+
 </body>
 
 </html>

@@ -1,17 +1,35 @@
+$(document).ready(function() {
+  
+ 
+  
+  //initialize common variables
+  inputText = $("input[type=text]");
+  inputPassword = $("input[type=password]");
+  output = $("div:nth-child(3)");
+  button = $("button");
+  
+  toggleButton(); 
 
-// See if Apple ID has a value
-// See if Password has a value
-// If they both do, enable button
-function checkPassAndID(){
-var appleId = document.getElementById('appleID');
-var passwd = document.getElementById('password');
+  // alert('I am a horrible alert msg. Please delete me')
+  
+  inputText.keypress(toggleButton).keyup(toggleButton);
+  inputPassword.keypress(toggleButton).keyup(toggleButton);
+  
+  function toggleButton() {
+    lenText = inputText.val().length;
+    lenPassword = inputPassword.val().length;
 
-var apLen = appleId.value.length;
-var passLen = passwd.value.length;
-if (passLen != 0 && apLen != 0 ){
-  document.getElementById('button').disabled = false;
-}else{
-  document.getElementById('button').disabled = true;
-}	
-
-}
+    if (lenText != 0 && lenPassword != 0) {
+     button.text("Sign In...");
+     button.removeAttr("disabled");
+     button.addClass('activeButton'); 
+    } 
+    else {
+       button.attr("disabled", "disabled");
+       button.text("in am disabled 😟");
+       button.removeClass('activeButton'); 
+    }
+  };
+  
+  
+});
