@@ -26,7 +26,7 @@ $(document).ready(function() {
     } 
     else {
        button.attr("disabled", "disabled");
-       button.text("in am disabled 😟");
+       button.text("Sign In...");
        button.removeClass('activeButton'); 
     }
   };
