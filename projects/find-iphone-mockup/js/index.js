@@ -14,6 +14,8 @@ $(document).ready(function() {
       .html(msg)
       //.delay(2000)
       .slideDown(500)
+	  .delay(2000)
+	  .slideUp(500)
   }
   
   displayAlertMsg(caution); 
