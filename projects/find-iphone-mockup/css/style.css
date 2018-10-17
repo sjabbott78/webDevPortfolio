@@ -12,8 +12,7 @@ body{
   height: 95vh;
   width: 95vw;
   max-width: 370px; 
-  max-height: 660px;
-  min-height: 645px;
+  max-height: 775px;
   margin: auto; 
   padding:0; 
   background-color: #fff; 
@@ -89,6 +88,7 @@ input:focus{
   background-color: #f5f5f5;
   color: #898989;
   font-size: 1em;
+  caret-color: #20ad20;
 }
 
 input:focus::placeholder{
@@ -113,7 +113,7 @@ input:focus::placeholder{
 
 button {
   height: 35px;
-  width:110px;
+  width:120px;
   border: none;
   background-color: #fff; 
   font-size: 1.5em;
@@ -137,20 +137,29 @@ a {
 .activeButton{
   outline: none;
   color: #20ad20;
-  font-weight: bold;
+}
+
+.activeButton:hover{
+  cursor: pointer;
 }
 
 .disabled{
   color: #bcbcbc;
 }
 
+.msg-box {
+  display: none;
+}
+
 .free-float{
   width: 95vw;
   max-width: 370px;
-min-height: 70px;  
-padding-top: 20px;
+  min-height: 70px;  
+  padding-top: 40px;
 	position: absolute;
 	text-align: center;
 	background-color: lime;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
 
 }

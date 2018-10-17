@@ -1,54 +1,69 @@
 $(document).ready(function() {
   
-     $('.msg-box').hide(); 
-   
-  var alert = "<b>Catastrophic Failure!</b> Toss phone in the river.";
-  var caution = '<div class=" free-float"><b>Session Expired.</b> Please Login.</div>'
-  var info = "<b>Info:</b> Someting happening..Update acc't maybe.";
+  //initialize common variables for display alert message
+  var caution = '<b>Session Expired.</b> Please Login.'
   var success = "<b>Hooray!</b> All systems go!"; 
-  
-  function displayAlertMsg(msg) {
+  var className = "free-float";
+ 
+  // This function displays the needed message from the top of the view port
+  function displayAlertMsg(msg, className) {
     
     $('.msg-box')
-      .addClass(msg)
+      .addClass(className)
       .html(msg)
-      //.delay(2000)
       .slideDown(500)
-	  .delay(2000)
-	  .slideUp(500)
+      .delay(2000)
+      .slideUp(500)
   }
   
-  displayAlertMsg(caution); 
-  //alert('I am a horrible alert msg. Please delete me')
+  displayAlertMsg(caution, className); 
  
- 
+  // This function uses a regex to check for the at symbol and that
+  //  the email address ends with a dot TLD
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
   
   //initialize common variables for toggleButton
-  inputText = $("input[type=text]");
-  inputPassword = $("input[type=password]");
-  output = $("div:nth-child(3)");
-  button = $("button");
+  var inputText = $("input[type=text]");
+  var inputPassword = $("input[type=password]");
+  var output = $("div:nth-child(3)");
+  var button = $("button");
  
   toggleButton(); 
   
   inputText.keypress(toggleButton).keyup(toggleButton);
   inputPassword.keypress(toggleButton).keyup(toggleButton);
   
+  // This function check the input boxes for values and calls validateEmail
+  //  to determine if the Sign In button should be active.
   function toggleButton() {
-    lenText = inputText.val().length;
-    lenPassword = inputPassword.val().length;
-
-    if (lenText != 0 && lenPassword != 0) {
-     button.text("Sign In...");
-     button.removeAttr("disabled");
-     button.addClass('activeButton'); 
+    var lenPassword = inputPassword.val().length;
+    var email = inputText.val();
+    
+    if (lenPassword != 0 && validateEmail(email)) {
+      button.text("Sign In...");
+      button.removeAttr("disabled");
+      button.addClass('activeButton');
     } 
     else {
-       button.attr("disabled", "disabled");
-       button.text("Sign In...");
-       button.removeClass('activeButton'); 
+      button.attr("disabled", "disabled");
+      button.text("Sign In...");
+      button.removeClass('activeButton'); 
     }
   };
   
-  
+  var selectButton = document.getElementById("button");
+
+  // This function triggers the sign in success message once the user
+  //  clicks the sign in button
+  selectButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (event.button === 0) {
+      displayAlertMsg(success, className);
+    }
+
+  });
+
 });
