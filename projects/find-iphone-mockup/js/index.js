@@ -1,9 +1,12 @@
 $(document).ready(function() {
   
   //initialize common variables for display alert message
+  var messageBox = document.getElementById('msg-box');
+  var alert = "<b>Catastrophic Failure!</b> Toss phone in the river.";
   var caution = '<b>Session Expired.</b> Please Login.'
   var success = "<b>Hooray!</b> All systems go!"; 
-  var className = "free-float";
+  var normalMsgClass = "free-float";
+  var alertMsgClass = "bad-free-float";
  
   // This function displays the needed message from the top of the view port
   function displayAlertMsg(msg, className) {
@@ -13,10 +16,12 @@ $(document).ready(function() {
       .html(msg)
       .slideDown(500)
       .delay(2000)
-      .slideUp(500)
+      .slideUp(500);
+      
+      
   }
   
-  displayAlertMsg(caution, className); 
+  displayAlertMsg(caution, normalMsgClass); 
  
   // This function uses a regex to check for the at symbol and that
   //  the email address ends with a dot TLD
@@ -46,8 +51,7 @@ $(document).ready(function() {
       button.text("Sign In...");
       button.removeAttr("disabled");
       button.addClass('activeButton');
-    } 
-    else {
+    } else {
       button.attr("disabled", "disabled");
       button.text("Sign In...");
       button.removeClass('activeButton'); 
@@ -61,7 +65,13 @@ $(document).ready(function() {
   selectButton.addEventListener("click", function(event) {
     event.preventDefault();
     if (event.button === 0) {
-      displayAlertMsg(success, className);
+      let oneOrZero = (Math.random()>0.5)? 1 : 0;
+      if(oneOrZero === 0){
+        messageBox.classList.remove(alertMsgClass);
+        displayAlertMsg(success, normalMsgClass);
+      } else{
+        displayAlertMsg(alert, alertMsgClass);
+      }
     }
 
   });

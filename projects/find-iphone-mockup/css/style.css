@@ -161,5 +161,8 @@ a {
 	background-color: lime;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
+}
 
+.bad-free-float {
+  background-color: #db1515;
 }
