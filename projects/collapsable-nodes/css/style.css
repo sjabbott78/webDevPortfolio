@@ -1,0 +1,42 @@
+/* my Style */
+
+body {
+  font-family: 'Pontano Sans', sans-serif;
+}
+
+.jumbotron {
+  margin: 0;
+  background-color: #FFF;
+}
+  
+.no-btm-margin {
+  margin-bottom: 0;
+}  
+  
+.navbar {
+  margin-top: 0;
+}
+  
+footer {
+  padding: 25px;
+}
+
+li {
+  list-style: none;
+}
+
+[data-toggle="collapse"] i:before{
+    content: "\f146";
+}
+
+[data-toggle="collapse"].collapsed i:before{
+    content: "\f0fe";
+}
+
+[data-toggle="collapse"] i.fas:before{
+    content: "\f0b2";
+}
+
+[data-toggle="collapse"].collapsed i.fas:before{
+    content: "\f31e";
+}
