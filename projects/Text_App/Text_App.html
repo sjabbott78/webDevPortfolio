@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/iphonefaketext.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="js/toggles.js"></script>
+<script src="js/sGlide.js"></script>
+<script src="js/timepicki.js"></script>
+<script src="js/jquery.ui.datepicker.js"></script>
+<script src="js/iphonefaketext-min.js"></script>
+<title>Text App</title>
+
+</head>
+
+<body>
+<div class="page">
+  <h1>Text Messages</h1>
+  <div class="body">
+    <div class="top">
+      <div id="options" class="box">Phone Status</div>
+      <div id="status_bar">
+        <div class="row">
+          <div class="label">Theme</div>
+          <div class="field">
+            <select id="theme">
+              <option value="b" selected>Blue</option>
+              <option value="g">Green</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Operator</div>
+          <div class="field">
+            <select id="operator">
+              <option value="AT&amp;T">AT&amp;T</option>
+              <option value="Verizon">Verizon</option>
+              <option value="Sprint">Sprint</option>
+              <option value="T-Mobile">T-Mobile</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Network</div>
+          <div class="field">
+            <select id="network">
+              <option value="3G">3G</option>
+              <option value="LTE" selected>4G</option>
+              <option value="wifi">WIFI</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Signal level</div>
+          <div class="field">
+            <div id="signal" class="slider"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Battery level</div>
+          <div class="field">
+            <div id="battery" class="slider"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Show battery %</div>
+          <div class="field toggle" id="battery_percent"></div>
+        </div>
+        <div class="row">
+          <div class="label">GPS</div>
+          <div class="field toggle" id="gps"></div>
+        </div>
+      </div>
+      <div class="sep">
+
+
+      </div>
+      <div class="box">
+        <div class="row">
+          <div class="label">Contact Name</div>
+          <div class="field">
+            <input type="text" id="contact_name" value="Friend" maxlength="15">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="canvas_wrapper">
+      <div id="cw">
+        <canvas id="canvas" width="400" height="710" style="width:400px; height:710px;"></canvas>
+        <div id="scrollbar"></div>
+        <div id="slider"></div>
+        <div class="edit_buttons"> <a  href="javascript:void(0)" onClick="App.editMessages()" >Edit Conversation</a></div>
+      </div>
+      <div id="ew">
+        <div class="editor_head">Messages</div>
+        <div class="editor_body">
+          <div id="editor_messages"> </div>
+        </div>
+        <div class="editor_foot">
+          <div class="buttons"><a class="blue" href="javascript:void(0)" onClick="App.closeeditMessages()">Done</a></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bottom">
+    
+      <div id="editor" class="box">
+        <div class="editor-inner">
+          <div class="date-time">
+            <div class="cdate">
+              <div class="col-name">DATE</div>
+              <div class="col-val">
+                <input type="text" id="msgdate">
+              </div>
+            </div>
+            <div class="ctime">
+              <div class="col-name">TIME</div>
+              <div class="col-val">
+                <input type="text" id="msgtime">
+              </div>
+            </div>
+          </div>
+          <div id="editor_info"></div>
+          <div class="col-name">MESSAGE</div>
+          <div id="textmsg">
+            <textarea id="message" placeholder="Type something here"></textarea>
+            <div class="buttons"> <a class="img" href="javascript:void(0)" onClick="$('#msg_image').click()" ></a> <a class="blue" href="javascript:void(0)" onClick="App.add(0)">Sent</a> <a href="javascript:void(0)" onClick="App.add(1)">Received</a> </div>
+          </div>
+          <div id="imagemsg">
+            <div style="display:flex">
+              <div id="imgc"></div>
+              <div class="buttons" style="align-self:center; padding-left:1rem"><a href="javascript:void(0)" onClick="App.cancelAddImage()">Cancel</a></div>
+            </div>
+            <div class="buttons"> <a class="blue" href="javascript:void(0)" onClick="App.sendImage(0)">Sent</a> <a href="javascript:void(0)" onClick="App.sendImage(1)">Received</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div class="footer">
+
+</div>
+</body>
+</html>
