@@ -5,18 +5,139 @@
 *	lkgamage@gmail.com
 *********************************/
 
-$(document).ready(function(e){App.init();$('.toggle').toggles({width:60,on:!0});$('.toggle').on('toggle',App.statusUpdated);$('#options').click(function(){$('#status_bar').toggle('fast',function(){if(!$(this).hasClass('init')){$('#battery').sGlide({'height':12,'startAt':App.status.battery,'colorStart':'#157efb','colorEnd':'#157efb','image':'images/knob.png',drag:function(o){App.status.battery=o.value?Math.ceil(o.value):4;App.start()}});$('#signal').sGlide({'height':12,'startAt':App.status.signal*20,'colorStart':'#157efb','colorEnd':'#157efb','image':'images/knob.png',drag:function(o){App.status.signal=o.value?Math.ceil(o.value/20):1;App.start()}});$(this).addClass('init')}})});$('#theme').change(App.setTheme);$('#operator, #network').change(App.draw);$('#contact_name').keyup(App.draw).on('paste',App.draw);$('#msgtime').timepicki();$('#msgdate').datepicker();$('#message').keyup(App.autoPost);$('#msg_image').bind('change',App.addImage)});var context,cmask,dimg;var App={};App.mode='compose';App.replay={total:0,current:-1,frame:0};App.config={width:400,height:710,innerWidth:376,innerHeight:575,margin:12,bubblew:260,lineHeight:16,lineGap:5,headerHeight:78.5,footerHeight:57,viewHeight:575};App.status={name:'Friend',battery:80,show_batt:!0,gps:!0,signal:2,op:'AT&T',net:'4g',theme:'b'}
-App.meta={loaded:0,total:6,scroll:0,edit:0,editId:null};App.tmp={width:1,height:1}
-App.bubble={b:15,c:20};App.themes={color:null,gray:'#e4e4e9',sys:'#6d6c72',black:'#000000',white:'#FFFFFF'};App.messages=[];App.imgs={tpl:null,wifi:null,sent:null,resv:null,battry:null,battry_empty:null,gps:null,blur:null};App.slider={x:0,h:0,delta:0};App.init=function(){var canvas=document.getElementById('canvas');context=canvas.getContext('2d',{alpha:!1});context.lineWidth=1;App.imgs.tpl=new loader("images/template.png");App.imgs.wifi=new loader('images/wifi.png');App.imgs.battry=new loader('images/battry.png');App.imgs.battry_empty=new loader('images/battry-empty.png');App.imgs.gps=new loader('images/gps.png');App.imgs.blur=new loader('images/blur.png');App.messages=[];App.setTheme();$("#slider").draggable({axis:"y",drag:function(e,ui){if(ui.position.top<77){ui.position.top=78}
-if(ui.position.top>556){ui.position.top=555}
-App.slider.x=(ui.position.top-78)/477;App.draw()}})}
+$(document).ready(function(e){
+	App.init();
+	$('.toggle').toggles({width:60,on:!0});
+	$('.toggle').on('toggle',App.statusUpdated);
+	
+	$('#options').click(function(){
+		$('#status_bar').toggle('fast',function(){
+			if(!$(this).hasClass('init')){
+				$('#battery').sGlide(
+				{'height':12,
+				'startAt':App.status.battery,
+				'colorStart':'#157efb',
+				'colorEnd':'#157efb',
+				'image':'images/knob.png',
+				drag:function(o){
+					App.status.battery=o.value?Math.ceil(o.value):4;
+					App.start()}});
+			$('#signal').sGlide({
+				'height':12,
+				'startAt':App.status.signal*20,
+				'colorStart':'#157efb',
+				'colorEnd':'#157efb',
+				'image':'images/knob.png',
+				drag:function(o){
+					App.status.signal=o.value?Math.ceil(o.value/20):1;
+					App.start()}});
+			$(this).addClass('init')}})});
+
+	$('#theme').change(App.setTheme);
+	$('#operator, #network').change(App.draw);
+	$('#contact_name').keyup(App.draw).on('paste',App.draw);
+	$('#msgtime').timepicki();
+	$('#msgdate').datepicker();
+	$('#message').keyup(App.autoPost);
+	$('#msg_image').bind('change',App.addImage)});
+	
+var context,cmask,dimg;
+var App={};
+App.mode='compose';
+App.replay={total:0,current:-1,frame:0};
+App.config={
+	width:400,
+	height:710,
+	innerWidth:376,
+	innerHeight:575,
+	margin:12,
+	bubblew:260,
+	lineHeight:16,
+	lineGap:5,
+	headerHeight:78.5,
+	footerHeight:57,
+	viewHeight:575};
+App.status={
+	name:'Friend',
+	battery:80,
+	show_batt:!0,
+	gps:!0,
+	signal:2,
+	op:'AT&T',
+	net:'4g',
+	theme:'b'}
+App.meta={
+	loaded:0,
+	total:6,
+	scroll:0,
+	edit:0,
+	editId:null};
+App.tmp={
+	width:1,
+	height:1}
+App.bubble={
+	b:15,
+	c:20};
+App.themes={
+	color:null,
+	gray:'#e4e4e9',
+	sys:'#6d6c72',
+	black:'#000000',
+	white:'#FFFFFF'};
+App.messages=[];
+App.imgs={
+	tpl:null,
+	wifi:null,
+	sent:null,
+	resv:null,
+	battry:null,
+	battry_empty:null,
+	gps:null,
+	blur:null};
+App.slider={
+	x:0,
+	h:0,
+	delta:0};
+App.init=function(){
+	var canvas=document.getElementById('canvas');
+	context=canvas.getContext('2d',{alpha:!1});
+	context.lineWidth=1;
+	App.imgs.tpl=new loader("images/template.png");
+	App.imgs.wifi=new loader('images/wifi.png');
+	App.imgs.battry=new loader('images/battry.png');
+	App.imgs.battry_empty=new loader('images/battry-empty.png');
+	App.imgs.gps=new loader('images/gps.png');
+	App.imgs.blur=new loader('images/blur.png');
+	App.messages=[];
+	App.setTheme();
+	$("#slider").draggable({
+		axis:"y",
+		drag:function(e,ui){
+			if(ui.position.top<77){
+				ui.position.top=78}
+
+			if(ui.position.top>556){
+				ui.position.top=555}
+
+			App.slider.x=(ui.position.top-78)/477;
+			App.draw()}})}
 App.start=function(){App.draw()}
-App.statusUpdated=function(e,active){if(e.currentTarget.id=='battery_percent'){App.status.show_batt=active}
-else if(e.currentTarget.id=='gps'){App.status.gps=active}
-App.draw()}
-App.autoPost=function(e,k){if(e.keyCode==13){if(App.messages.length==0){App.add(0)}
-else{m=App.messages[App.messages.length-1];if(m.dir==1){App.add(0)}
-else{App.add(1)}}}}
+App.statusUpdated=function(e,active){
+	if(e.currentTarget.id=='battery_percent'){
+		App.status.show_batt=active}
+	else if(e.currentTarget.id=='gps'){
+		App.status.gps=active}
+	App.draw()}
+App.autoPost=function(e,k){
+	if(e.keyCode==13){
+		if(App.messages.length==0){
+			App.add(0)}
+		else{
+			m=App.messages[App.messages.length-1];
+			if(m.dir==1){
+				App.add(0)}
+			else{App.add(1)}}}}
+			
 App.add=function(dir,dontdraw){msg=$('#message').val();if(!msg){return}
 msgtime=$('#msgtime').val();msgdate=$('#msgdate').val();var dt;if(msgtime||msgdate){context.font='12px Verdana';if(msgtime&&msgdate){ud=msgdate.split('/');ut=msgtime.split(/[: ]/);if(ut[2]=='PM'){ut[0]=parseInt(ut[0])+12}
 dt=new Date(parseInt(ud[2]),parseInt(ud[0])-1,parseInt(ud[1]),parseInt(ut[0]),parseInt(ut[1]));ts=timeTostring(0,dt)}
