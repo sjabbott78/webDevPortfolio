@@ -1,0 +1,12 @@
+all in iphonefaketext-min.js
+
+split string of message
+
+place each word in link to edit or delete
+
+type new word
+
+rebuild string; 
+	keep original, 
+	strike through edited/deleted words and concatenate new word after original, 
+	bold new word/s
