@@ -1,379 +1,57 @@
-$(document).ready(function(e){
-	App.init();
-	$('.toggle').toggles({width:60,on:!0});
-	$('.toggle').on('toggle',App.statusUpdated);
-	$('#options').click(function(){
-		$('#status_bar').toggle('fast',function(){
-			if(!$(this).hasClass('init')){
-				$('#battery').sGlide({
-					'height':12,'startAt':App.status.battery,'colorStart':'#157efb','colorEnd':'#157efb','image':'images/knob.png',drag:function(o){
-						App.status.battery=o.value?Math.ceil(o.value):4;
-						App.start()
-					}
-				});
-				$('#signal').sGlide({
-					'height':12,'startAt':App.status.signal*20,'colorStart':'#157efb','colorEnd':'#157efb','image':'images/knob.png',drag:function(o){
-						App.status.signal=o.value?Math.ceil(o.value/20):1;
-						App.start()
-					}
-				});
-			$(this).addClass('init')
-			}
-		})
-	});
-	$('#theme').change(App.setTheme);
-	$('#operator, #network').change(App.draw);
-	$('#contact_name').keyup(App.draw).on('paste',App.draw);
-	$('#msgtime').timepicki();
-	$('#msgdate').datepicker();
-	$('#message').keyup(App.autoPost);
-	$('#msg_image').bind('change',App.addImage)
-});
+/*********************************
+*	Lasantha Kumara Gamage
+*	iphonefaketext.com  version 3
+*	2017-8-25
+*	lkgamage@gmail.com
+*********************************/
 
-var context,cmask,dimg;
-var App={};
-App.mode='compose';
-App.replay={total:0,current:-1,frame:0};
-
-App.config={
-	width:400,height:710,innerWidth:376,innerHeight:575,margin:12,bubblew:260,lineHeight:16,lineGap:5,headerHeight:78.5,footerHeight:57,viewHeight:575
-};
-
-App.status={
-	name:'Friend',battery:80,show_batt:!0,gps:!0,signal:2,op:'AT&T',net:'4g',theme:'b'
-}
-
-App.meta={loaded:0,total:6,scroll:0,edit:0,editId:null};
-App.tmp={width:1,height:1}
-App.bubble={b:15,c:20};
-App.themes={color:null,gray:'#e4e4e9',sys:'#6d6c72',black:'#000000',white:'#FFFFFF'};
-App.messages=[];
-App.imgs={tpl:null,wifi:null,sent:null,resv:null,battry:null,battry_empty:null,gps:null,blur:null};
-
-App.slider={x:0,h:0,delta:0};App.init=function(){
-	var canvas=document.getElementById('canvas');
-	context=canvas.getContext('2d',{alpha:!1});
-	context.lineWidth=1;
-	App.imgs.tpl=new loader("images/template.png");
-	App.imgs.wifi=new loader('images/wifi.png');
-	App.imgs.battry=new loader('images/battry.png');
-	App.imgs.battry_empty=new loader('images/battry-empty.png');
-	App.imgs.gps=new loader('images/gps.png');
-	App.imgs.blur=new loader('images/blur.png');
-	App.messages=[];
-	App.setTheme();
-	$("#slider").draggable({
-		axis:"y",drag:function(e,ui){
-			if(ui.position.top<77){
-				ui.position.top=78
-			}
-			if(ui.position.top>556){
-				ui.position.top=555
-			}
-			App.slider.x=(ui.position.top-78)/477;App.draw()
-		}
-	})
-}
-
+$(document).ready(function(e){App.init();$('.toggle').toggles({width:60,on:!0});$('.toggle').on('toggle',App.statusUpdated);$('#options').click(function(){$('#status_bar').toggle('fast',function(){if(!$(this).hasClass('init')){$('#battery').sGlide({'height':12,'startAt':App.status.battery,'colorStart':'#157efb','colorEnd':'#157efb','image':'images/knob.png',drag:function(o){App.status.battery=o.value?Math.ceil(o.value):4;App.start()}});$('#signal').sGlide({'height':12,'startAt':App.status.signal*20,'colorStart':'#157efb','colorEnd':'#157efb','image':'images/knob.png',drag:function(o){App.status.signal=o.value?Math.ceil(o.value/20):1;App.start()}});$(this).addClass('init')}})});$('#theme').change(App.setTheme);$('#operator, #network').change(App.draw);$('#contact_name').keyup(App.draw).on('paste',App.draw);$('#msgtime').timepicki();$('#msgdate').datepicker();$('#message').keyup(App.autoPost);$('#msg_image').bind('change',App.addImage)});var context,cmask,dimg;var App={};App.mode='compose';App.replay={total:0,current:-1,frame:0};App.config={width:400,height:710,innerWidth:376,innerHeight:575,margin:12,bubblew:260,lineHeight:16,lineGap:5,headerHeight:78.5,footerHeight:57,viewHeight:575};App.status={name:'Friend',battery:80,show_batt:!0,gps:!0,signal:2,op:'AT&T',net:'4g',theme:'b'}
+App.meta={loaded:0,total:6,scroll:0,edit:0,editId:null};App.tmp={width:1,height:1}
+App.bubble={b:15,c:20};App.themes={color:null,gray:'#e4e4e9',sys:'#6d6c72',black:'#000000',white:'#FFFFFF'};App.messages=[];App.imgs={tpl:null,wifi:null,sent:null,resv:null,battry:null,battry_empty:null,gps:null,blur:null};App.slider={x:0,h:0,delta:0};App.init=function(){var canvas=document.getElementById('canvas');context=canvas.getContext('2d',{alpha:!1});context.lineWidth=1;App.imgs.tpl=new loader("images/template.png");App.imgs.wifi=new loader('images/wifi.png');App.imgs.battry=new loader('images/battry.png');App.imgs.battry_empty=new loader('images/battry-empty.png');App.imgs.gps=new loader('images/gps.png');App.imgs.blur=new loader('images/blur.png');App.messages=[];App.setTheme();$("#slider").draggable({axis:"y",drag:function(e,ui){if(ui.position.top<77){ui.position.top=78}
+if(ui.position.top>556){ui.position.top=555}
+App.slider.x=(ui.position.top-78)/477;App.draw()}})}
 App.start=function(){App.draw()}
-
-App.statusUpdated=function(e,active){
-	if(e.currentTarget.id=='battery_percent'){
-		App.status.show_batt=active
-	}
-	else if(e.currentTarget.id=='gps'){
-		App.status.gps=active
-	}
-	App.draw()
-}
-
-App.autoPost=function(e,k){
-	if(e.keyCode==13){
-		if(App.messages.length==0){App.add(0)
-		}
-		else{
-			m=App.messages[App.messages.length-1];
-			if(m.dir==1){
-				App.add(0)
-			}
-			else{
-				App.add(1)
-			}
-		}
-	}
-}
-
-App.add=function(dir,dontdraw){
-	msg=$('#message').val();
-	if(!msg){return}
-	msgtime=$('#msgtime').val();
-	msgdate=$('#msgdate').val();
-	var dt;
-	if(msgtime||msgdate){
-		context.font='12px Verdana';
-		if(msgtime&&msgdate){
-			ud=msgdate.split('/');
-			ut=msgtime.split(/[: ]/);
-			if(ut[2]=='PM'){
-				ut[0]=parseInt(ut[0])+12
-			}
-			dt=new Date(parseInt(ud[2]),parseInt(ud[0])-1,parseInt(ud[1]),parseInt(ut[0]),parseInt(ut[1]));
-			ts=timeTostring(0,dt)
-		}
-		else if(msgdate){
-			ud=msgdate.split('/');
-			dt=new Date(parseInt(ud[2]),parseInt(ud[0])-1,parseInt(ud[1]));
-			ts=timeTostring(40,dt);
-			dt=getDateTime(40,dt)
-		}
-		else if(msgtime){
-			cd=new Date();
-			ud=[cd.getMonth(),cd.getDate(),cd.getFullYear()];
-			ut=msgtime.split(/[: ]/);
-			if(ut[2]=='PM'){
-				ut[0]=parseInt(ut[0]);
-				if(ut[0]!=12){
-					ut[0]+=12
-				}
-			}
-			dt=new Date(parseInt(ud[2]),parseInt(ud[0]),parseInt(ud[1]),parseInt(ut[0]),parseInt(ut[1]));
-			ts=timeTostring(0,dt)
-		}
-		skip=!1;
-		if(!App.messages||App.messages.length>=0){
-			var dd=new Date(dt.getTime());
-			for(k=App.messages.length-1;k>=0;k--){
-				if(App.messages[k].isSys()){
-					if(dd.getTime()<App.messages[k].time.getTime()){
-						dif=Date.now()-App.messages[k].time.getTime();
-						nd=getDateTime(-1*(dif/60000),dd);
-						ns=timeTostring(0,nd);
-						App.messages[k].msg=ns;
-						App.messages[k].width=context.measureText(ns).width;
-						App.messages[k].time=nd;
-						if(dd.getTime()-nd.getTime()<3600000){
-							skip=!0
-						}
-					}
-					else if(dd.getTime()-App.messages[k].time.getTime()<3600000){
-						skip=!0
-					}
-					dd=new Date(App.messages[k].time.getTime())
-				}
-			}
-		}
-
-		if(!skip){
-			dim=context.measureText(ts);
-			var g=new Message(ts,dir,1);
-			g.width=dim.width;
-			g.height=12+App.config.margin;
-			g.lines=1;
-			g.time=dt;
-			App.messages.push(g)
-		}
-	}
-	else if(!App.messages||App.messages.length==0){
-		context.font='12px Verdana';
-		ts=timeTostring(-5);
-		dim=context.measureText(ts);
-		var g=new Message(ts,dir,1);
-		g.width=dim.width;
-		g.height=12+App.config.margin;
-		g.lines=1;
-		g.time=getDateTime(-5);
-		App.messages.push(g)
-	}
-	dim=App.calc(msg);
-	msg=$.trim(msg);
-	var m=new Message(dim.text,dir,0);
-	m.width=dim.width;
-	m.height=dim.height;
-	m.lines=dim.lines;
-	App.messages.push(m);
-	if(!dontdraw){
-		App.reorder();App.draw()
-	}
-
-	$('#message').val('');
-	$('#msgtime').val('');
-	$('#msgdate').val('')
-}
-
-App.addImage=function(e){
-	if(!e.target.files||!e.target.files[0]){return}
-	$('#imgc').html('loading...');
-	iurl=URL.createObjectURL(e.target.files[0]);
-	dimg=new Image();
-	dimg.onload=function(){
-		mwidth=200;
-		mheight=150;
-		if(dimg.width<mwidth&&dimg.height<mheight){
-			iw=dimg.width;ih=dimg.height
-		}
-		else if(dimg.width>=dimg.height){
-			iw=mwidth;
-			ih=Math.round((mwidth/dimg.width)*dimg.height)
-		}
-		else{
-			ih=mheight;
-			iw=Math.round((mheight/dimg.height)*dimg.width)
-		}
-		cw=iw;
-		ch=ih;
-		App.tmp.width=iw*2;
-		App.tmp.height=ih*2;
-		App.tmp.deltax=Math.round((dimg.width-iw)/4);
-		App.tmp.deltay=Math.round((dimg.height-ih)/4);
-		App.tmp.ow=dimg.width;
-		App.tmp.oh=dimg.height;
-		App.tmp.step=0;
-		tmp=new Image();
-		tmp.src=dimg.src;dimg.onload=function(){
-			App.tmp.step++;
-			if(App.tmp.step==3){
-				$('#imgc').html('<canvas width="'+(App.tmp.width/2)+'" height="'+(App.tmp.height/2)+'" style="width:'+(App.tmp.width/2)+'px; height:'+(App.tmp.height/2)+'px;" id="cmask"></canvas>');
-				cmask=document.getElementById('cmask').getContext('2d');
-				cmask.clearRect(0,0,App.tmp.width/2,App.tmp.height/2);
-				cmask.drawImage(dimg,0,0,dimg.width,dimg.height,0,0,App.tmp.width/2,App.tmp.height/2);
-				cmask=document.getElementById('stepdown').getContext('2d')
-			}
-			else{
-				xw=App.tmp.ow-App.tmp.step*App.tmp.deltax;
-				xh=App.tmp.oh-App.tmp.step*App.tmp.deltay;
-				$('#dark').html('<canvas width="'+xw+'" height="'+xh+'" style="width:'+xw+'px; height:'+xh+'px;" id="stepdown"></canvas>');
-				ctx=document.getElementById('stepdown').getContext('2d');
-				ctx.drawImage(tmp,0,0,tmp.width,tmp.height,0,0,xw,xh);
-				dimg.src=document.getElementById('stepdown').toDataURL()
-			}
-		};
-		dimg.src=dimg.src
-	};
-	dimg.src=iurl;
-	$('#textmsg').css({display:'none'});
-	$('#imagemsg').css({display:'block'})
-}
-
-App.sendImage=function(dir){
-	$('#message').val('[image]');
-	App.add(dir,!0);
-	w=App.tmp.width;
-	h=App.tmp.height;
-	b=App.bubble.b*2;
-	c=App.bubble.c*2;
-	cmask.clearRect(0,0,w,h);
-	cmask.globalCompositeOperation='source-over';
-	cmask.fillStyle=App.themes.gray;
-	cmask.strokeStyle=App.themes.gray;
-	if(dir==0){
-		cmask.beginPath();
-		cmask.moveTo(c,0);
-		cmask.lineTo(w-b-c,0);
-		cmask.arc(w-b-c,c,c,1.5*Math.PI,0);
-		cmask.lineTo(w-b,h-b);
-		cmask.arc(w,h-b,b,Math.PI,0.6*Math.PI,!0);
-		cmask.arc(w-0.5*b,h-1.5*b,1.5*b,0.55*Math.PI,0.75*Math.PI);
-		cmask.arc(w-c-b,h-c,c,0,0.5*Math.PI);
-		cmask.lineTo(c,h);
-		cmask.arc(c,h-c,c,0.5*Math.PI,Math.PI);
-		cmask.lineTo(0,c);
-		cmask.arc(c,c,c,Math.PI,1.5*Math.PI);
-		cmask.closePath();
-		cmask.fill();
-		cmask.stroke()
-	}
-	else{
-		cmask.beginPath();
-		cmask.moveTo(c+b,0);
-		cmask.lineTo(w-c,0);
-		cmask.arc(w-c,c,c,1.5*Math.PI,0);
-		cmask.lineTo(w,h-c);
-		cmask.arc(w-c,h-c,c,0,0.5*Math.PI);
-		cmask.lineTo(c+b,h);
-		cmask.arc(b+c,h-c,c,0.5*Math.PI,0.75*Math.PI);
-		cmask.arc(0.5*b,h-1.5*b,1.5*b,0.3*Math.PI,0.55*Math.PI);
-		cmask.arc(0,h-b,b,0.45*Math.PI,0,!0);
-		cmask.lineTo(b,c);
-		cmask.arc(b+c,c,c,Math.PI,1.5*Math.PI);
-		cmask.closePath();
-		cmask.fill();
-		cmask.stroke()
-	}
-	cmask.globalCompositeOperation='source-in';
-	cmask.drawImage(dimg,0,0,dimg.width,dimg.height,0,0,w,h);
-	var mi=App.messages.length-1;
-	App.messages[mi].type=2;
-	App.messages[mi].width=w/2;
-	App.messages[mi].height=h/2;
-	if(dir==0){
-		App.messages[mi].x=App.config.width-App.config.margin-w
-	}
-	else{
-		App.messages[mi].x=App.config.margin
-	}
-	App.reorder();
-	var tm=new Image();
-	App.messages[mi].msg=tm;
-	tm.onload=App.draw;
-	tm.src=document.getElementById('stepdown').toDataURL();
-	App.cancelAddImage()
-}
-
-App.cancelAddImage=function(){
-	$('#imagemsg').css({display:'none'});
-	$('#textmsg').css({display:'block'}).find('textarea')[0].focus()
-}
-
-App.reorder=function(){
-	if(App.messages&&App.messages.length>0){
-		tp=App.config.margin;
-		for(n=0;n<App.messages.length;n++){
-			App.messages[n].y=tp;
-			if(App.messages[n].isImage()){
-				if(App.messages[n].isIn()){
-					App.messages[n].x=App.config.margin
-				}
-				else{
-					App.messages[n].x=App.config.width-(App.messages[n].width+App.config.margin)
-				}
-			}
-			else if(App.messages[n].isSys()){
-				App.messages[n].x=(App.config.width-App.messages[n].width)/2;
-				if(n>0&&App.messages[n-1].dir==App.messages[n+1].dir){
-					App.messages[n].y+=App.config.margin;
-					tp+=App.config.margin
-				}
-			}
-			else if(App.messages[n].isIn()){
-				App.messages[n].x=App.config.margin+App.bubble.b
-			}
-			else{
-				App.messages[n].x=App.config.width-(App.messages[n].width+App.config.margin+App.bubble.b)
-			}
-			if(n<App.messages.length-1&&App.messages[n+1]&&App.messages[n+1].dir==App.messages[n].dir){
-				App.messages[n].talk=!1;
-				tp+=3+App.messages[n].height
-			}
-			else{
-				tp+=App.messages[n].height+App.config.margin;
-				App.messages[n].talk=!0
-			}
-			if(n<App.messages.length-1&&App.messages[n+1]&&App.messages[n+1].isSys()){
-				App.messages[n].talk=!0
-			}
-		}
-		App.slider.h=tp;
-		if(tp>575){
-			$('#scrollbar, #slider').css({display:'block'});
-			$('#slider').css({top:555});
-			App.slider.x=1
-		}
-		else{
-			$('#scrollbar, #slider').css({display:'none'})
-		}
-	}
-}
-
+App.statusUpdated=function(e,active){if(e.currentTarget.id=='battery_percent'){App.status.show_batt=active}
+else if(e.currentTarget.id=='gps'){App.status.gps=active}
+App.draw()}
+App.autoPost=function(e,k){if(e.keyCode==13){if(App.messages.length==0){App.add(0)}
+else{m=App.messages[App.messages.length-1];if(m.dir==1){App.add(0)}
+else{App.add(1)}}}}
+App.add=function(dir,dontdraw){msg=$('#message').val();if(!msg){return}
+msgtime=$('#msgtime').val();msgdate=$('#msgdate').val();var dt;if(msgtime||msgdate){context.font='12px Verdana';if(msgtime&&msgdate){ud=msgdate.split('/');ut=msgtime.split(/[: ]/);if(ut[2]=='PM'){ut[0]=parseInt(ut[0])+12}
+dt=new Date(parseInt(ud[2]),parseInt(ud[0])-1,parseInt(ud[1]),parseInt(ut[0]),parseInt(ut[1]));ts=timeTostring(0,dt)}
+else if(msgdate){ud=msgdate.split('/');dt=new Date(parseInt(ud[2]),parseInt(ud[0])-1,parseInt(ud[1]));ts=timeTostring(40,dt);dt=getDateTime(40,dt)}
+else if(msgtime){cd=new Date();ud=[cd.getMonth(),cd.getDate(),cd.getFullYear()];ut=msgtime.split(/[: ]/);if(ut[2]=='PM'){ut[0]=parseInt(ut[0]);if(ut[0]!=12){ut[0]+=12}}
+dt=new Date(parseInt(ud[2]),parseInt(ud[0]),parseInt(ud[1]),parseInt(ut[0]),parseInt(ut[1]));ts=timeTostring(0,dt)}
+skip=!1;if(!App.messages||App.messages.length>=0){var dd=new Date(dt.getTime());for(k=App.messages.length-1;k>=0;k--){if(App.messages[k].isSys()){if(dd.getTime()<App.messages[k].time.getTime()){dif=Date.now()-App.messages[k].time.getTime();nd=getDateTime(-1*(dif/60000),dd);ns=timeTostring(0,nd);App.messages[k].msg=ns;App.messages[k].width=context.measureText(ns).width;App.messages[k].time=nd;if(dd.getTime()-nd.getTime()<3600000){skip=!0}}
+else if(dd.getTime()-App.messages[k].time.getTime()<3600000){skip=!0}
+dd=new Date(App.messages[k].time.getTime())}}}
+if(!skip){dim=context.measureText(ts);var g=new Message(ts,dir,1);g.width=dim.width;g.height=12+App.config.margin;g.lines=1;g.time=dt;App.messages.push(g)}}
+else if(!App.messages||App.messages.length==0){context.font='12px Verdana';ts=timeTostring(-5);dim=context.measureText(ts);var g=new Message(ts,dir,1);g.width=dim.width;g.height=12+App.config.margin;g.lines=1;g.time=getDateTime(-5);App.messages.push(g)}
+dim=App.calc(msg);msg=$.trim(msg);var m=new Message(dim.text,dir,0);m.width=dim.width;m.height=dim.height;m.lines=dim.lines;App.messages.push(m);if(!dontdraw){App.reorder();App.draw()}
+$('#message').val('');$('#msgtime').val('');$('#msgdate').val('')}
+App.addImage=function(e){if(!e.target.files||!e.target.files[0]){return}
+$('#imgc').html('loading...');iurl=URL.createObjectURL(e.target.files[0]);dimg=new Image();dimg.onload=function(){mwidth=200;mheight=150;if(dimg.width<mwidth&&dimg.height<mheight){iw=dimg.width;ih=dimg.height}
+else if(dimg.width>=dimg.height){iw=mwidth;ih=Math.round((mwidth/dimg.width)*dimg.height)}
+else{ih=mheight;iw=Math.round((mheight/dimg.height)*dimg.width)}
+cw=iw;ch=ih;App.tmp.width=iw*2;App.tmp.height=ih*2;App.tmp.deltax=Math.round((dimg.width-iw)/4);App.tmp.deltay=Math.round((dimg.height-ih)/4);App.tmp.ow=dimg.width;App.tmp.oh=dimg.height;App.tmp.step=0;tmp=new Image();tmp.src=dimg.src;dimg.onload=function(){App.tmp.step++;if(App.tmp.step==3){$('#imgc').html('<canvas width="'+(App.tmp.width/2)+'" height="'+(App.tmp.height/2)+'" style="width:'+(App.tmp.width/2)+'px; height:'+(App.tmp.height/2)+'px;" id="cmask"></canvas>');cmask=document.getElementById('cmask').getContext('2d');cmask.clearRect(0,0,App.tmp.width/2,App.tmp.height/2);cmask.drawImage(dimg,0,0,dimg.width,dimg.height,0,0,App.tmp.width/2,App.tmp.height/2);cmask=document.getElementById('stepdown').getContext('2d')}
+else{xw=App.tmp.ow-App.tmp.step*App.tmp.deltax;xh=App.tmp.oh-App.tmp.step*App.tmp.deltay;$('#dark').html('<canvas width="'+xw+'" height="'+xh+'" style="width:'+xw+'px; height:'+xh+'px;" id="stepdown"></canvas>');ctx=document.getElementById('stepdown').getContext('2d');ctx.drawImage(tmp,0,0,tmp.width,tmp.height,0,0,xw,xh);dimg.src=document.getElementById('stepdown').toDataURL()}};dimg.src=dimg.src};dimg.src=iurl;$('#textmsg').css({display:'none'});$('#imagemsg').css({display:'block'})}
+App.sendImage=function(dir){$('#message').val('[image]');App.add(dir,!0);w=App.tmp.width;h=App.tmp.height;b=App.bubble.b*2;c=App.bubble.c*2;cmask.clearRect(0,0,w,h);cmask.globalCompositeOperation='source-over';cmask.fillStyle=App.themes.gray;cmask.strokeStyle=App.themes.gray;if(dir==0){cmask.beginPath();cmask.moveTo(c,0);cmask.lineTo(w-b-c,0);cmask.arc(w-b-c,c,c,1.5*Math.PI,0);cmask.lineTo(w-b,h-b);cmask.arc(w,h-b,b,Math.PI,0.6*Math.PI,!0);cmask.arc(w-0.5*b,h-1.5*b,1.5*b,0.55*Math.PI,0.75*Math.PI);cmask.arc(w-c-b,h-c,c,0,0.5*Math.PI);cmask.lineTo(c,h);cmask.arc(c,h-c,c,0.5*Math.PI,Math.PI);cmask.lineTo(0,c);cmask.arc(c,c,c,Math.PI,1.5*Math.PI);cmask.closePath();cmask.fill();cmask.stroke()}
+else{cmask.beginPath();cmask.moveTo(c+b,0);cmask.lineTo(w-c,0);cmask.arc(w-c,c,c,1.5*Math.PI,0);cmask.lineTo(w,h-c);cmask.arc(w-c,h-c,c,0,0.5*Math.PI);cmask.lineTo(c+b,h);cmask.arc(b+c,h-c,c,0.5*Math.PI,0.75*Math.PI);cmask.arc(0.5*b,h-1.5*b,1.5*b,0.3*Math.PI,0.55*Math.PI);cmask.arc(0,h-b,b,0.45*Math.PI,0,!0);cmask.lineTo(b,c);cmask.arc(b+c,c,c,Math.PI,1.5*Math.PI);cmask.closePath();cmask.fill();cmask.stroke()}
+cmask.globalCompositeOperation='source-in';cmask.drawImage(dimg,0,0,dimg.width,dimg.height,0,0,w,h);var mi=App.messages.length-1;App.messages[mi].type=2;App.messages[mi].width=w/2;App.messages[mi].height=h/2;if(dir==0){App.messages[mi].x=App.config.width-App.config.margin-w}
+else{App.messages[mi].x=App.config.margin}
+App.reorder();var tm=new Image();App.messages[mi].msg=tm;tm.onload=App.draw;tm.src=document.getElementById('stepdown').toDataURL();App.cancelAddImage()}
+App.cancelAddImage=function(){$('#imagemsg').css({display:'none'});$('#textmsg').css({display:'block'}).find('textarea')[0].focus()}
+App.reorder=function(){if(App.messages&&App.messages.length>0){tp=App.config.margin;for(n=0;n<App.messages.length;n++){App.messages[n].y=tp;if(App.messages[n].isImage()){if(App.messages[n].isIn()){App.messages[n].x=App.config.margin}
+else{App.messages[n].x=App.config.width-(App.messages[n].width+App.config.margin)}}
+else if(App.messages[n].isSys()){App.messages[n].x=(App.config.width-App.messages[n].width)/2;if(n>0&&App.messages[n-1].dir==App.messages[n+1].dir){App.messages[n].y+=App.config.margin;tp+=App.config.margin}}
+else if(App.messages[n].isIn()){App.messages[n].x=App.config.margin+App.bubble.b}
+else{App.messages[n].x=App.config.width-(App.messages[n].width+App.config.margin+App.bubble.b)}
+if(n<App.messages.length-1&&App.messages[n+1]&&App.messages[n+1].dir==App.messages[n].dir){App.messages[n].talk=!1;tp+=3+App.messages[n].height}
+else{tp+=App.messages[n].height+App.config.margin;App.messages[n].talk=!0}
+if(n<App.messages.length-1&&App.messages[n+1]&&App.messages[n+1].isSys()){App.messages[n].talk=!0}}
+App.slider.h=tp;if(tp>575){$('#scrollbar, #slider').css({display:'block'});$('#slider').css({top:555});App.slider.x=1}
+else{$('#scrollbar, #slider').css({display:'none'})}}}
 App.calc=function(msg){wd=msg.split(' ');txt=[];ti=0;mw=0;line='';App.font();for(i=0;i<wd.length;i++){line+=wd[i]+" ";nv=(wd.length>i+1)?wd[i+1]:'';if(context.measureText(line+" "+nv).width>App.config.bubblew){txt[ti]=$.trim(line);line="";ti++}}
 txt[ti]=$.trim(line);ti++;if(txt){for(l=0;l<txt.length;l++){tw=context.measureText(txt[l]);if(tw.width>mw){mw=tw.width}}}
 mh=(ti*App.config.lineHeight)+(ti-1)*App.config.lineGap+(2*App.config.margin);if(mw<20){mw=20}
